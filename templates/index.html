@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BobGPT – Futuristic AI Chat</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+    <div class="background-layers"></div>
+    <div class="app-shell">
+        <aside class="sidebar glass-card">
+            <div class="sidebar-brand">
+                <div class="logo-badge">BOB</div>
+                <div>
+                    <h1>BobGPT</h1>
+                    <p>AI interface for elite teams</p>
+                </div>
+            </div>
+
+            <div class="sidebar-intro">
+                <p>Launch fast ideas with contextual AI, polished chat sessions, and a glow-ready UI crafted for founders.</p>
+            </div>
+
+            <div class="sidebar-stats">
+                <div class="stat">
+                    <span>99.9%</span>
+                    <small>Reliability</small>
+                </div>
+                <div class="stat">
+                    <span>45ms</span>
+                    <small>Response time</small>
+                </div>
+            </div>
+
+            <button id="newChatBtn" class="control-button secondary">Start new session</button>
+
+            <div class="sidebar-panel">
+                <div class="panel-heading">Recent sessions</div>
+                <div id="chatHistory" class="chat-history"></div>
+            </div>
+
+            <div class="sidebar-actions">
+                <button id="saveBtn" class="control-button">Rename session</button>
+                <button id="downloadBtn" class="control-button">Download chat</button>
+                <button id="copyBtn" class="control-button">Copy transcript</button>
+            </div>
+
+            <div class="theme-switcher">
+                <span>Theme</span>
+                <label class="toggle-switch">
+                    <input id="themeToggle" type="checkbox" />
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </aside>
+
+        <main class="chat-container glass-card">
+            <div class="hero-panel">
+                <div>
+                    <span class="subtitle">Welcome to BobGPT</span>
+                    <h2>Build premium chat experiences with a futuristic AI engine.</h2>
+                </div>
+                <div class="hero-actions">
+                    <span class="badge">AI Workspace</span>
+                    <span class="badge accent">Pro UI</span>
+                </div>
+            </div>
+
+            <div class="feature-strip">
+                <div class="feature-card">
+                    <strong>Markdown-ready</strong>
+                    <p>Clear code blocks, lists, and rich text responses.</p>
+                </div>
+                <div class="feature-card">
+                    <strong>Voice input</strong>
+                    <p>Speak naturally and let BobGPT type for you.</p>
+                </div>
+                <div class="feature-card">
+                    <strong>Persistent chat</strong>
+                    <p>Sessions are kept locally for instant recall.</p>
+                </div>
+            </div>
+
+            <section id="chatWindow" class="chat-window"></section>
+
+            <footer class="chat-input-panel">
+                <div class="voice-input-group">
+                    <button id="voiceBtn" class="icon-button voice-btn" title="Voice input">🎙</button>
+                    <div>
+                        <span id="voiceStatus" class="voice-status">Say "Hello Bob"</span>
+                        <small>Use voice commands for faster prompts.</small>
+                    </div>
+                </div>
+
+                <textarea id="messageInput" placeholder="Ask Bob anything…" rows="1"></textarea>
+
+                <div class="footer-actions">
+                    <button id="sendBtn" class="control-button primary">Send</button>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
