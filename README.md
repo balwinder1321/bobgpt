@@ -82,3 +82,4 @@ Open `http://127.0.0.1:5000` in your browser.
 - Voice input works on supported Chrome-based browsers using SpeechRecognition.
 
 Enjoy building and customizing BobGPT! 🚀
+
