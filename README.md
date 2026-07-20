@@ -1,85 +1,82 @@
-# BobGPT
+1. Implementation of symbol table.
 
-BobGPT is a premium AI chatbot web app built with Flask, modern glassmorphism UI, animated gradients, dark/light mode, voice input, local chat storage, and OpenAI API integration.
+#include <stdio.h> #include <stdlib.h> #include <string.h>
 
-## Features
+#define TABLE SIZE 100
 
-- Futuristic AI chatbot layout with glass-style UI and motion effects
-- Dark/light theme with responsive mobile-friendly design
-- Sidebar chat history and session management
-- Markdown support for bot responses
-- Voice input using browser speech recognition
-- Local chat save, copy, and download options
-- Secure OpenAI API request handling via Flask backend and `.env`
-- Deployment-ready for Render and Replit
+typedef struct Symbol { char name[50]; char type[20]; int value; struct Symbol* next;
 
-## Getting Started
+} Symbol;
 
-### Prerequisites
+typedef struct SymbolTable { Symbol* table[TABLE SIZE]; } SymbolTable;
 
-- Python 3.10+
-- OpenAI API key
+unsigned int hash(char* name) { unsigned int hash = 0; while (*name) { hash= (hash * 31) + *name++;
 
-### Install
+}
 
-1. Clone or initialize the project folder.
-2. Create a virtual environment and activate it:
+return hash % TABLE SIZE;
 
-```bash
-python -m venv venv
-venv\Scripts\Activate.ps1  # PowerShell
-# or
-venv\Scripts\activate.bat  # cmd
-```
+}
 
-3. Install dependencies:
+SymbolTable* createSymbolTable() (
 
-```bash
-pip install -r requirements.txt
-```
+SymbolTable* st = (SymbolTable*)malloc(sizeof(SymbolTable));
 
-4. Copy `.env.example` to `.env` and add your OpenAI key:
+for (int i = 0; i <TABLE_SIZE; i++) {
 
-```bash
-copy .env.example .env
-```
+st->table[i]= NULL;
 
-5. Run locally:
+}
 
-```bash
-python app.py
-```
+return st;
 
-Open `http://127.0.0.1:5000` in your browser.
+}
 
-## Deployment
+void insert(SymbolTable* st, char* name, char* type, int value) { unsigned int index = hash(name);
 
-### Render
+Symbol* newSymbol = (Symbol*)malloc(sizeof(Symbol));
 
-1. Push the repository to GitHub.
-2. Create a new Web Service on Render.
-3. Use `python app.py` or `gunicorn app:app` as the start command.
-4. Add `OPENAI_API_KEY` as an environment variable.
+strcpy(newSymbol->name, name);
 
-### Replit
+strcpy(newSymbol->type, type);
 
-1. Upload the project to Replit.
-2. Add `OPENAI_API_KEY` in Secrets.
-3. Use the `.replit` config to run the Flask app.
+newSymbol->value = value;
 
-## Project Structure
+newSymbol->next = st->table[index];
 
-- `app.py` – Flask backend and OpenAI route
-- `templates/index.html` – frontend UI markup
-- `static/css/style.css` – polished glassmorphism styling
-- `static/js/app.js` – chat logic, storage, voice, and API calls
-- `.env.example` – environment variable example
-- `requirements.txt` – Python dependencies
+st->table[index] = newSymbol;
 
-## Notes
+printf("Inserted: %s\n", name);
 
-- Local chat history is stored in `localStorage` in the browser.
-- Voice input works on supported Chrome-based browsers using SpeechRecognition.
+Symbol* lookup(SymbolTable* st, char* name) { unsigned int index = hash(name); Symbol* current = st->table[index]; while (current) {
 
-Enjoy building and customizing BobGPT! 🚀
+if (strcmp(current->name, name) 0) { return current;
+current = current->next;
 
+return NULL:
+
+void display(SymbolTable* st) {
+
+printf("\nSymbol Table:\n");
+
+printf("Name\t\tType\t\tValue\n");
+
+printf("
+
+for (int i = 0; i <TABLE_SIZE; i++) {
+
+Symbol* current = st->table[i];
+
+while (current) {
+
+printf("%s\t\t%s\t\t%d\n", current->name, current->type, current->value); current = current->next;
+
+int main()
+
+SymbolTable* st = createSymbolTable(); insert(st, "x", "int", 10); insert(st, "y", "float", 25); insert(st, "temp", "int", 100); insert(st, "result", "double", 45);
+
+display(st);
+
+Symbol* found = lookup(st, "x"); if (found) { printf("\nFound variable 'x': Type-%s, Value=%d\n", found->type, found->value);
+
+return
