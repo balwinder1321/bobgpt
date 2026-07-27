@@ -1,82 +1,100 @@
-1. Implementation of symbol table.
+include <stdio.h>
 
-#include <stdio.h> #include <stdlib.h> #include <string.h>
+#include <stdlib.h>
 
-#define TABLE SIZE 100
+#include <ctype.h>
 
-typedef struct Symbol { char name[50]; char type[20]; int value; struct Symbol* next;
+#include <string.h>
 
-} Symbol;
+char keywords[10][10]= {
 
-typedef struct SymbolTable { Symbol* table[TABLE SIZE]; } SymbolTable;
+"int", "float", "if", "else", "while", "return", "for", "char", "void", "double"
 
-unsigned int hash(char* name) { unsigned int hash = 0; while (*name) { hash= (hash * 31) + *name++;
+int isKeyword(char* str) { for (int i = 0; i<10; i++) { if (strcmp(str, keywords[i]) ==0) return 1;
+
+return 0;
+
+void analyze(FILE* fp) {
+
+char ch, buffer[100];
+
+int i=0;
+
+while ((ch = fgetc(fp)) != EOF) {
+
+// Skip whitespace
+
+if (isspace(ch)) continue;
+
+// Identifier or keyword
+
+if (isalpha(ch)) {
+
+buffer[i++]=ch;
+
+while (isalnum(ch = fgetc(fp)) || ch=')
+
+buffer[i++]= ch;
+
+buffer[i] = \0';
+
+i=0;
+
+ungetc(ch, fp);
+
+if (isKeyword(buffer)) printf("Keyword: %s\n", buffer);
+
+else
+
+printf("Identifier: %s\n", buffer);
 
 }
 
-return hash % TABLE SIZE;
+// Number
 
-}
+else if (isdigit(ch)) {
 
-SymbolTable* createSymbolTable() (
+buffer[i++]= ch;
 
-SymbolTable* st = (SymbolTable*)malloc(sizeof(SymbolTable));
+while (isdigit(ch = fgetc(fp)))
 
-for (int i = 0; i <TABLE_SIZE; i++) {
+buffer[i++]= ch;
 
-st->table[i]= NULL;
+buffer[i]= \0';
 
-}
+i=0;
 
-return st;
+ungetc(ch, fp);
 
-}
+printf("Number: %s\n", buffer);
 
-void insert(SymbolTable* st, char* name, char* type, int value) { unsigned int index = hash(name);
+// Operators
 
-Symbol* newSymbol = (Symbol*)malloc(sizeof(Symbol));
+else if (ch== '+' || ch=='-' || ch== '* || ch=/' || ch='=') {
+printf("Operator: %c\n", ch);
 
-strcpy(newSymbol->name, name);
+// Special symbols
 
-strcpy(newSymbol->type, type);
+printf("Special Symbol: %c\n", ch);
 
-newSymbol->value = value;
+// Unknown
 
-newSymbol->next = st->table[index];
+else {
 
-st->table[index] = newSymbol;
+printf("Unknown character: %c\n", ch);
 
-printf("Inserted: %s\n", name);
+int main() {
 
-Symbol* lookup(SymbolTable* st, char* name) { unsigned int index = hash(name); Symbol* current = st->table[index]; while (current) {
+FILE* fp = fopen("source.c", "r");
 
-if (strcmp(current->name, name) 0) { return current;
-current = current->next;
+printf("Error: Cannot open file.\n");
 
-return NULL:
+return 1;
 
-void display(SymbolTable* st) {
+printf("Lexical Analysis Output:\n\n");
 
-printf("\nSymbol Table:\n");
+analyze(fp);
 
-printf("Name\t\tType\t\tValue\n");
-
-printf("
-
-for (int i = 0; i <TABLE_SIZE; i++) {
-
-Symbol* current = st->table[i];
-
-while (current) {
-
-printf("%s\t\t%s\t\t%d\n", current->name, current->type, current->value); current = current->next;
-
-int main()
-
-SymbolTable* st = createSymbolTable(); insert(st, "x", "int", 10); insert(st, "y", "float", 25); insert(st, "temp", "int", 100); insert(st, "result", "double", 45);
-
-display(st);
-
-Symbol* found = lookup(st, "x"); if (found) { printf("\nFound variable 'x': Type-%s, Value=%d\n", found->type, found->value);
+fclose(fp);
 
 return
